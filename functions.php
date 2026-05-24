@@ -8,7 +8,7 @@ function tailpress(): TailPress\Framework\Theme
 {
     return TailPress\Framework\Theme::instance()
         ->assets(fn($manager) => $manager
-            ->withCompiler(new TailPress\Framework\Assets\ViteCompiler, fn($compiler) => $compiler
+            ->withCompiler(new TailPress\Assets\DockerViteCompiler('http://localhost:3000'), fn($compiler) => $compiler
                 ->registerAsset('resources/css/app.css')
                 ->registerAsset('resources/js/app.js')
                 ->editorStyleFile('resources/css/editor-style.css')

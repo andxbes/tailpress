@@ -20,3 +20,21 @@ To get started, have a look at the [documentation](https://tailpress.io/docs).
 ## License
 
 MIT. Please see the [License File](/LICENSE) for more information.
+
+
+
+## To run the development environment in Docker:
+
+- In `docker-compose.yml`, add the following to your `php` service:
+
+  ```yaml
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  ```
+
+- In `wp-config.php`, add these lines:
+
+  ```php
+  define( 'WP_ENVIRONMENT_TYPE', 'local' ); // This enables development mode for WordPress and ViteCompiler
+  define( 'VITE_PROBE_URL', 'http://host.docker.internal:3000' ); // URL for Vite probe from PHP in Docker
+  ```

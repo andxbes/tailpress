@@ -7,9 +7,16 @@ export default defineConfig(({ command }) => {
     return {
         base: isBuild ? '/wp-content/themes/tailpress/dist/' : '/',
         server: {
+            host: true,
             port: 3000,
+            strictPort: true,
             cors: true,
-            origin: 'http://tailpress.test',
+            origin: 'http://tailpress.local',
+            allowedHosts: ['localhost', 'host.docker.internal', 'tailpress.local'],
+            hmr: {
+                host: 'localhost',
+                port: 3000,
+            },
         },
         build: {
             manifest: true,
