@@ -25,7 +25,7 @@ MIT. Please see the [License File](/LICENSE) for more information.
 
 ## To run the development environment in Docker:
 
-- In `docker-compose.yml`, add the following to your `php` service:
+- In `docker-compose.yml`, add the following to your `php and nginx` container:
 
   ```yaml
     extra_hosts:
@@ -38,3 +38,14 @@ MIT. Please see the [License File](/LICENSE) for more information.
   define( 'WP_ENVIRONMENT_TYPE', 'local' ); // This enables development mode for WordPress and ViteCompiler
   define( 'VITE_PROBE_URL', 'http://host.docker.internal:3000' ); // URL for Vite probe from PHP in Docker
   ```
+- for resourses in dev  set nginx rules 
+```conf
+        location ^~ /resources/ {
+                proxy_pass http://host.docker.internal:3000;
+                proxy_http_version 1.1;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+        }
+```
