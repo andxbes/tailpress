@@ -40,12 +40,12 @@ MIT. Please see the [License File](/LICENSE) for more information.
   ```
 - for resourses in dev  set nginx rules 
 ```conf
-        location ^~ /resources/ {
-                proxy_pass http://host.docker.internal:3000;
-                proxy_http_version 1.1;
-                proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
-        }
+location ^~ /resources/ {
+    proxy_pass http://host.docker.internal:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
 ```
