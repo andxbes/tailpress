@@ -35,3 +35,15 @@ function tailpress(): TailPress\Framework\Theme
 }
 
 tailpress();
+
+/**
+ * Production Vite bundles are ES modules; without type="module" top-level bindings
+ * (e.g. minified `const _`) leak into the global scope and break plugins like Ninja Forms.
+ */
+add_filter( 'script_loader_tag', static function ( string $tag, string $handle ): string {
+	if ( $handle === 'tailpress-app' && ! str_contains( $tag, 'type="module"' ) ) {
+		return str_replace( '<script ', '<script type="module" ', $tag );
+	}
+
+	return $tag;
+}, 10, 2 );
